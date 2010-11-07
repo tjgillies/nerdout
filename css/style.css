@@ -111,9 +111,7 @@ button {  width: auto; overflow: visible; }
 .invisible { visibility: hidden; }
 
 /* >> The Magnificent CLEARFIX: Updated to prevent margin-collapsing on child elements << j.mp/bestclearfix */
-.clearfix:before, .clearfix:after {
-  content: "\0020"; display: block; height: 0; visibility: hidden;	
-} 
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; visibility: hidden; } 
 
 .clearfix:after { clear: both; }
 /* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
@@ -121,10 +119,10 @@ button {  width: auto; overflow: visible; }
 
 /* Universal Styles */
 #container { text-align: center; }
-#main { width: 925px; min-height: 100px; margin: 0 auto; text-align: left; }
+#main { width: 925px; min-height: 125px; margin: 0 auto; text-align: left; }
 #footer { height: 249px; width: 100%; background: url(../images/city_bottom.png) 0 0 repeat-x; position: relative; bottom: -40px; margin: 45px 0 0 0; }
 
-a.city_button:link		{ text-align: center;  display: block; background: url(../images/city_button.png) 0 0 repeat-x #535353; border: 1px solid #666666; color: #efefef; font-family: 'Lobster', arial, serif; text-shadow: 1px 1px 1px #222222; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; font-size: 30px; font-weight: normal; padding: 8px 0 6px 0; text-decoration: none; }
+a.city_button:link		{ text-align: center; margin: 0 auto; display: block; background: url(../images/city_button.png) 0 0 repeat-x #535353; border: 1px solid #666666; color: #efefef; font-family: 'Lobster', arial, serif; text-shadow: 1px 1px 1px #222222; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; font-size: 30px; font-weight: normal; padding: 8px 0 6px 0; text-decoration: none; }
 a.city_button:visited	{ border: 1px solid #666666; color: #efefef; font-family: 'Lobster', arial, serif; text-shadow: 1px 1px 1px #222222; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; font-size: 30px; padding: 4px 0 0 0; }
 a.city_button:hover		{ background: url(../images/city_button.png) 0 -50px repeat-x #8c8b8b; }
 a.btn_tiny		{ width: 60px; }
@@ -161,7 +159,7 @@ span.nerd_points_word { display: block; text-align: center; margin: 0 15px 0 0; 
 span.nerdout_date 	{ float: right; }
 
 #nerd_cities { width: 950px; margin: 0 0 45px 0; text-align: left; }
-
+#nerd_cities a { float: left; }
 
 
 /*
