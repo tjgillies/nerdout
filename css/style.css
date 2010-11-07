@@ -1,124 +1,58 @@
-/* 
-  HTML5 ✰ Boilerplate 
-  
+/* HTML5 ✰ Boilerplate 
   style.css contains a reset, font normalization and some base styles.
-  
   credit is left where credit is due.
   much inspiration was taken from these projects:
     yui.yahooapis.com/2.8.1/build/base/base.css
     camendesign.com/design/
     praegnanz.de/weblog/htmlcssjs-kickstart
-*/
 
-/* 
-  html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
-  v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark
+  html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline) v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark
   html5doctor.com/html-5-reset-stylesheet/
 */
-
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-abbr, address, cite, code,
-del, dfn, em, img, ins, kbd, q, samp,
-small, strong, sub, sup, var,
-b, i,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {
-  margin:0;
-  padding:0;
-  border:0;
-  outline:0;
-  font-size:100%;
-  vertical-align:baseline;
-  background:transparent;
-}                  
-
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section { 
-    display:block;
-}
-
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, 
+fieldset, form, label, legend, table, caption, tbody, tfoot, 
+thead, tr, th, td, article, aside, canvas, details, figcaption, 
+figure, footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video { margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent; } 
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display:block; }
 nav ul { list-style:none; }
-
 blockquote, q { quotes:none; }
-
 blockquote:before, blockquote:after,
 q:before, q:after { content:''; content:none; }
-
 a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
-
 ins { background-color:#ff9; color:#000; text-decoration:none; }
-
 mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
-
 del { text-decoration: line-through; }
-
 abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
-
-/* tables still need cellspacing="0" in the markup */
 table { border-collapse:collapse; border-spacing:0; }
-
 hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
-
 input, select { vertical-align:middle; }
-
 /* END RESET CSS */
 
-
-/* fonts.css from the YUI Library: developer.yahoo.com/yui/
-   Refer to developer.yahoo.com/yui/3/cssfonts/ for font sizing percentages
-
-  There are three custom edits:
-   * remove arial, helvetica from explicit font stack
-   * we normalize monospace styles ourselves
-   * table font-size is reset in the HTML5 reset above so there is no need to repeat
-*/
 body { font:13px/1.231 sans-serif; *font-size:small; background: url(../images/background.png) 0 0 repeat-x #d1b886; } /* hack retained to preserve specificity */
-
 select, input, textarea, button { font:99% sans-serif; }
-
-/* normalize monospace sizing 
- * en.wikipedia.org/wiki/MediaWiki_talk:Common.css/Archive_11#Teletype_style_fix_for_Chrome
- */
 pre, code, kbd, samp { font-family: monospace, sans-serif; }
-
-body, select, input, textarea { 
-  /* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */ 
-  color: #444; 
-  /* set your base font here, to apply evenly */
-  /* font-family: Georgia, serif;  */   
-}
-
-/* Headers (h1,h2,etc) have no default font-size or margin,
-   you'll want to define those yourself. */ 
+body, select, input, textarea { color: #333; }
 h1,h2,h3,h4,h5,h6 { font-weight: bold; }
-
-/* always force a scrollbar in non-IE: */ 
 html { overflow-y: scroll; }
 
-/* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
-a:hover, a:active { outline: none; }
-a, a:active, a:visited { color: #607890; }
-a:hover { color: #036; }
+a:hover, a:active { outline: none; text-decoration: underline; }
+a, a:active, a:visited { color: #a33827; text-decoration: none; }
+a:hover { color: #036; text-decoration: underline;  }
 
 ul, ol { margin-left: 1.8em; }
 ol { list-style-type: decimal; }
 
 /* Remove margins for navigation lists */
 nav ul, nav li { margin: 0; } 
-
 small { font-size: 85%; }
 strong, th { font-weight: bold; }
-
 td, td img { vertical-align: top; } 
-
 sub { vertical-align: sub; font-size: smaller; }
 sup { vertical-align: super; font-size: smaller; }
-
 pre { 
 padding: 15px; 
 white-space: pre; /* CSS2 */
@@ -130,8 +64,7 @@ word-wrap: break-word; /* IE */
 textarea { overflow: auto; } /* thnx ivannikolic! www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
 .ie6 legend, .ie7 legend { margin-left: -7px; } /* thnx ivannikolic! */
 
-/* align checkboxes, radios, text inputs with their label
-   by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
+/* align checkboxes, radios, text inputs with their label by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
 input[type="radio"] { vertical-align: text-bottom; }
 input[type="checkbox"] { vertical-align: bottom; }
 .ie7 input[type="checkbox"] { vertical-align: baseline; }
@@ -139,11 +72,7 @@ input[type="checkbox"] { vertical-align: bottom; }
 
 /* hand cursor on clickable input elements */
 label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
- 
-/* webkit browsers add a 2px margin outside the chrome of form elements */  
-button, input, select, textarea { margin: 0; }
-
-/* colors for form validity */
+ button, input, select, textarea { margin: 0; }
 input:valid, textarea:valid   {  }
 input:invalid, textarea:invalid { 
 border-radius: 1px;
@@ -154,40 +83,27 @@ box-shadow: 0px 0px 5px red;
 .no-boxshadow input:invalid, 
 .no-boxshadow textarea:invalid { background-color: #f0dddd; }
 
-
-/* These selection declarations have to be separate.
-   No text-shadow: twitter.com/miketaylr/status/12228805301 
-   Also: hot pink. */
-::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
-::selection { background:#FF5E99; color:#fff; text-shadow: none; } 
+/* These selection declarations have to be separate. No text-shadow: twitter.com/miketaylr/status/12228805301 Also: hot pink. */
+::-moz-selection{ background: #a33827; color:#f5e9cd; text-shadow: none; }
+::selection { background:#a33827; color:#f5e9cd; text-shadow: none; } 
 
 /*  j.mp/webkit-tap-highlight-color */
-a:link { -webkit-tap-highlight-color: #FF5E99; } 
+a:link { } 
 
-/* make buttons play nice in IE:    
-   www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
+/* make buttons play nice in IE: www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
 button {  width: auto; overflow: visible; }
  
-/* bicubic resizing for non-native sized IMG: 
-   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
+/* bicubic resizing for non-native sized IMG: code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
 .ie7 img { -ms-interpolation-mode: bicubic; }
 
-
-
-/* 
- * Non-semantic helper classes 
- */
-
-/* for image replacement */
+/* Non-semantic helper classes for image replacement */
 .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
 
-/* Hide for both screenreaders and browsers
-   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+/* Hide for both screenreaders and browsers css-discuss.incutio.com/wiki/Screenreader_Visibility */
 .hidden { display: none; visibility: hidden; } 
 
-/* Hide only visually, but have it available for screenreaders 
-   www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden  */
-.visuallyhidden { position: absolute !important;    
+/* Hide only visually, but have it available for screenreaders www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden  */
+.visuallyhidden { position: absolute !important; 
   clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
   clip: rect(1px, 1px, 1px, 1px); }
 
@@ -203,16 +119,12 @@ button {  width: auto; overflow: visible; }
 /* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
 .clearfix { zoom: 1; }
 
-/* Primary Styles Author: */
-
+/* Universal Styles */
 #container { text-align: center; }
+#main { width: 925px; min-height: 100px; margin: 0 auto; text-align: left; }
+#footer { height: 249px; width: 100%; background: url(../images/city_bottom.png) 0 0 repeat-x; position: relative; bottom: -40px; margin: 45px 0 0 0; }
 
-#footer { height: 249px; width: 100%; background: url(../images/city_bottom.png) 0 0 repeat-x; position: absolute; bottom: 0px; }
-
-p.index_question { font-size: 30px; color: #555555; font-family: Arial, Helvetica, sans-serif; margin: 75px 0 40px 0; }
-h1.index_name { font-family: 'Lobster', arial, serif; font-size: 125px; margin: 0 0 45px 0; color: #a33827; text-shadow: 3px 3px 3px #666666; filter: dropshadow(color=#666666, offx=3, offy=3); }
-
-a.city_button:link		{ text-align: center;  display: block; margin: 0 auto; background: url(../images/city_button.png) 0 0 repeat-x #535353; border: 1px solid #666666; color: #efefef; font-family: 'Lobster', arial, serif; text-shadow: 1px 1px 1px #222222; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; font-size: 30px; font-weight: normal; padding: 8px 0 6px 0; text-decoration: none; }
+a.city_button:link		{ text-align: center;  display: block; background: url(../images/city_button.png) 0 0 repeat-x #535353; border: 1px solid #666666; color: #efefef; font-family: 'Lobster', arial, serif; text-shadow: 1px 1px 1px #222222; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; font-size: 30px; font-weight: normal; padding: 8px 0 6px 0; text-decoration: none; }
 a.city_button:visited	{ border: 1px solid #666666; color: #efefef; font-family: 'Lobster', arial, serif; text-shadow: 1px 1px 1px #222222; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; font-size: 30px; padding: 4px 0 0 0; }
 a.city_button:hover		{ background: url(../images/city_button.png) 0 -50px repeat-x #8c8b8b; }
 a.btn_tiny		{ width: 60px; }
@@ -220,9 +132,35 @@ a.btn_small		{ width: 100px; }
 a.btn_medium	{ width: 175px; }
 a.btn_large		{ width: 220px; }
 
+/* Index */
+p.index_question { font-size: 30px; color: #555555; font-family: Arial, Helvetica, sans-serif; margin: 60px 0 40px 0; }
+h1.index_name { font-family: 'Lobster', arial, serif; font-size: 125px; margin: 0 0 45px 0; color: #a33827; text-shadow: 3px 3px 3px #666666; filter: dropshadow(color=#666666, offx=3, offy=3); }
 
+/* City */
+#city_header { height: 75px; background: url(../images/city_header.png) 0 0 repeat-x; border-bottom: 3px solid #7b5f27; margin: 0 0 25px 0; }
+#current_hashtag { font-weight: bold; }
 
+h1.city_name { float: left; font-family: 'Lobster', arial, serif; font-size: 48px; margin: 5px 0 0 30px; color: #a33827; text-shadow: 2px 2px 2px #8e7f61; filter: dropshadow(color=#8e7f61, offx=2, offy=2); }
+h2.city_title { font-family: 'Lobster', arial, serif; font-size: 36px; margin: 20px 0; color: #444444; text-shadow: 1px 1px 2px #928260; filter: dropshadow(color=#928260, offx=1, offy=2); }
 
+p.city_hashtag { float: right; font-size: 21px; color: #444444; text-shadow: 1px 1px 1px #e1d4bb; font-family: Arial, Helvetica, sans-serif; margin: 25px 30px 0 0; }
+
+#nerd_map { width: 950px; height: 500px; border: 6px solid #a13827; margin: 0 0 45px 0; }
+
+#uber_nerds { width: 950px; min-height: 390px; margin: 0 0 45px 0; text-align: left; }
+div.nerd_card		{ width: 275px; height: 390px; float: left; margin: 0 40px 0 0; color: #999999; background: #f9f9f9; text-align: left; font-size: 14px; font-weight: bold; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; }
+div.nerd_card ul	{ list-style: none;  margin: 0 20px 20px 20px; }
+div.nerd_card li	{ margin: 0 0 5px 0; padding: 0 0 5px 0; border-bottom: 1px solid #999999; }
+div.nerd_card a		{ display: block; margin: 0 0 15px 20px; } 
+div.nerd_image		{ width: 125px; height: 125px; overflow: hidden; float: left; margin: 20px 15px 15px 20px; }
+
+a.nerd_name			{ font-size: 18px; }
+
+span.nerd_points 	{ display: block; margin: 10px 0 0 0; font-size: 60px; }
+span.nerd_points_word { display: block; text-align: center; margin: 0 15px 0 0; font-size: 12px }
+span.nerdout_date 	{ float: right; }
+
+#nerd_cities { width: 950px; margin: 0 0 45px 0; text-align: left; }
 
 
 
