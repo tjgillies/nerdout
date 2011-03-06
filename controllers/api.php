@@ -27,7 +27,6 @@ class Api extends Oauth_Controller
         }
         
         $this->response($message, 200);   
-    
     }
 
     function create_checkin_authd_post()
@@ -49,16 +48,13 @@ class Api extends Oauth_Controller
 		name address city state neighborhood
 		timestamp
 */
-		$daemon = file_get_contents('php://input');
-		
-		log_message('debug', 'file get contents dump: '.$daemon);
-		
+		$daemon = file_get_contents('php://input');		
 		$data	= json_decode($daemon);
-
-		log_message('debug', 'json decodeed data: '.$data);
-/*   	
+		
+		//$user = $this->social_igniter->get_user('email', $user_email);
+	
     	$content_data = array(
-    		'site_id'			=> $site_id,
+    		'site_id'			=> 1,
 			'parent_id'			=> 0,
 			'category_id'		=> 0,
 			'module'			=> $data->module,
@@ -88,7 +84,7 @@ class Api extends Oauth_Controller
 			// Process Content Meta
 			//$meta_data = array('excerpt' => $this->input->post('excerpt'));
 			//$content_meta = $this->social_igniter->add_meta(config_item('site_id'), $result['content']->content_id, $meta_data);
-	    
+	   
 			// API Response
         	$message = array('status' => 'success', 'message' => 'Awesome we added your checkin', 'data' => $result['content']);
         }
@@ -98,7 +94,6 @@ class Api extends Oauth_Controller
         }	
 
         $this->response($message, 200);
-*/
     }
       
     function destroy_delete()
