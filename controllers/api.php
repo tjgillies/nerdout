@@ -73,20 +73,43 @@ class Api extends Oauth_Controller
 		$data	= json_decode($daemon);
 		$email	= $data->username.'@'.$data->module.'.com';
 		
-		if ($user = $this->social_auth->get_user('email', $email))
+		// Site
+		if ($data->module == 'twitter') $site_id = 2;
+		else $site_id = 3;
+		
+		$user_check			= $this->social_auth->get_user('email', $email);
+		$connection_check	= $this->social_auth->
+
+		if ((!$user_check) && (!$connection_check))
 		{
 			$user_id = $user->user_id;
 		}
 		else
 		{
+			// Add User
 			$additional_data = array(
 				'name'	=> $data->name,
 				'image'	=> $data->image
 			);
 		
 			$user_id = $this->social_auth->social_register($data->username, $email, $additional_data);
-		
-			$this->social_auth->add_user_meta(array('url' => $data->url, 'location' => $location));
+			
+			// Add Meta
+			$this->social_auth->update_user_meta($site_id, $user_id, 'users', array('url' => $data->url, 'location' => $location)));
+
+			// Add Connection
+       		$connection_data = array(
+       			'site_id'				=> site_id,
+       			'user_id'				=> $user_id,
+       			'module'				=> $data->module,
+       			'type'					=> 'scrapped',
+       			'connection_user_id'	=> $data->user_id,
+       			'connection_username'	=> $data->username,
+       			'auth_one'				=> '',
+       			'auth_two'				=> ''
+       		);
+ 
+			$this->social_auth->add_connection($connection_data);			
 		}
 		    									
 		// Insert
