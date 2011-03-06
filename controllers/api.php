@@ -24,16 +24,16 @@ class Api extends Oauth_Controller
             foreach($checkins as $checkin) {
               $features[] = array(  
                 'type' => 'Feature',
-                'id' => $checkin->content_id,
-                'geometry' => array(
-                  'type' => 'Point',
-                  'coordinates' => array(
-                    $checkin->geo_lat, $checkin->geo_long)
-                ),
-                'properties' => array(
+                /*'properties' => array(
+                  'id' => $checkin->content_id,
                   'user_id' => $checkin->user_id,
                   'content' => $checkin->content,
                   'content_url' => $checkin->details
+                ),*/
+                'geometry' => array(
+                  'type' => 'Point',
+                  'coordinates' => array(
+                    $checkin->geo_long, $checkin->geo_lat)
                 )
               );
             }
