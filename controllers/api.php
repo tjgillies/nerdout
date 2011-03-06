@@ -39,7 +39,6 @@ class Api extends Oauth_Controller
 		location (house)
 		source: daemon
 		module: 4sq/twitter
-		type:
 		content:
 		content_url:
 		geo_lat
@@ -50,8 +49,23 @@ class Api extends Oauth_Controller
 */
 		$daemon = file_get_contents('php://input');		
 		$data	= json_decode($daemon);
+		$email	= $data->username.'@'.$data->module.'.com';
 		
-		//$user = $this->social_igniter->get_user('email', $user_email);
+		if ($user = $this->social_auth->get_user('email', $email))
+		{
+			$user_id = $user->user_id;
+		}
+		else
+		{
+			$additional_data = array(
+				'name'	=> $data->name,
+				'image'	=> $data->image
+			);
+		
+			$user_id = $this->social_auth->social_register($data->username, $email, $additional_data);
+		
+			$this->social_auth->add_user_meta(array('url' => $data->url, 'location' => $location));
+		}
 	
     	$content_data = array(
     		'site_id'			=> 1,
@@ -81,9 +95,10 @@ class Api extends Oauth_Controller
 		     		
 	    if ($result)
 	    {			
-			// Process Content Meta
-			//$meta_data = array('excerpt' => $this->input->post('excerpt'));
-			//$content_meta = $this->social_igniter->add_meta(config_item('site_id'), $result['content']->content_id, $meta_data);
+			$checkin_count	= $this->social_auth->get_user_meta_meta($user_id, 'checkin_count');
+			$checkin_new 	= 1 + $checkin_count;
+			
+			$this->social_auth->update_user_meta(1, $user_id, 'users', array('checkin_count' => $checkin_new));  
 	   
 			// API Response
         	$message = array('status' => 'success', 'message' => 'Awesome we added your checkin', 'data' => $result['content']);
