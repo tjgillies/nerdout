@@ -19,6 +19,7 @@ class Api extends Oauth_Controller
         
         if($checkins)
         {
+          /* content.content_id, content.module, content.source, content.user_id, content.content, content.content_url, content.geo_lat, content.geo_long, content.geo_accuracy, users.user_id, users.username, users.name, users.image, users.gravatar */
             $message = array('status' => 'success', 'message' => 'Yay we found some checkins', 'data' => $checkins);
         }
         else
@@ -67,33 +68,11 @@ class Api extends Oauth_Controller
 			$this->social_auth->add_user_meta(array('url' => $data->url, 'location' => $location));
 		}
 	
-    	$content_data = array(
-    		'site_id'			=> 1,
-			'parent_id'			=> 0,
-			'category_id'		=> 0,
-			'module'			=> $data->module,
-			'type'				=> 'checkin',
-			'source'			=> $data->souce,
-			'order'				=> 0,
-    		'user_id'			=> $this->oauth_user_id,
-			'title'				=> '',
-			'title_url'			=> '',
-			'content'			=> $data->content,
-			'details'			=> $data->content_url,
-			'access'			=> '',
-			'comments_allow'	=> 'Y',
-			'geo_lat'			=> $data->geo_lat,
-			'geo_long'			=> $data->geo_long,
-			'geo_accuracy'		=> $data->geo_accuracy,
-			'viewed'			=> 'Y',
-			'approval'			=> 'Y',
-			'status'			=> 'P'  			
-    	);
     									
 		// Insert
-		$result = $this->social_igniter->add_content($content_data);
-		     		
-	    if ($result)
+		$result = $this->checkins->add_checkins($user_id, $data);
+
+	  if ($result)
 	    {			
 			$checkin_count	= $this->social_auth->get_user_meta_meta($user_id, 'checkin_count');
 			$checkin_new 	= 1 + $checkin_count;
