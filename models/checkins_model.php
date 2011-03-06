@@ -19,7 +19,7 @@ class Checkins_model extends CI_Model
  		return $result->result();	      
     }
     
-    function add_content($user_id, $status_data)
+    function add_checkin($user_id, $status_data)
     {
  		$data = array(
 			'user_id' 	 			=> $user_id,
@@ -34,4 +34,12 @@ class Checkins_model extends CI_Model
 		return $this->db->get_where('checkins', array('item_id' => $status_id))->row();	
     }    
     
+    function delete_checkin($checkin_id) {
+      return $this->db->delete('checkins', array('checkin_id', $checkin_id));
+    }
+
+    function update_checkin($checkin_id, $data) {
+      $this->db->where('checkin_id', $checkin_id);
+      return $this->db->update('checkin', $data);
+    }
 }
