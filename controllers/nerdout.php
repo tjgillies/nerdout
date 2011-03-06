@@ -11,7 +11,7 @@ class Nerdout extends Site_Controller
 	function index()
 	{
 		$this->data['page_title'] = 'Nerdout';
-		$this->render();	
+		$this->render('landing');	
 	}
 
 	function view() 
