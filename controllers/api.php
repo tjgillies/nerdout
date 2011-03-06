@@ -66,32 +66,9 @@ class Api extends Oauth_Controller
 		
 			$this->social_auth->add_user_meta(array('url' => $data->url, 'location' => $location));
 		}
-	
-    	$content_data = array(
-    		'site_id'			=> 1,
-			'parent_id'			=> 0,
-			'category_id'		=> 0,
-			'module'			=> $data->module,
-			'type'				=> 'checkin',
-			'source'			=> $data->souce,
-			'order'				=> 0,
-    		'user_id'			=> $this->oauth_user_id,
-			'title'				=> '',
-			'title_url'			=> '',
-			'content'			=> $data->content,
-			'details'			=> $data->content_url,
-			'access'			=> '',
-			'comments_allow'	=> 'Y',
-			'geo_lat'			=> $data->geo_lat,
-			'geo_long'			=> $data->geo_long,
-			'geo_accuracy'		=> $data->geo_accuracy,
-			'viewed'			=> 'Y',
-			'approval'			=> 'Y',
-			'status'			=> 'P'  			
-    	);
     									
 		// Insert
-		$result = $this->social_igniter->add_content($content_data);
+		$result = $this->social_igniter->add_content($user_id, $data);
 		     		
 	    if ($result)
 	    {			
