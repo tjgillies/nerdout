@@ -20,4 +20,9 @@ class Nerdout extends Site_Controller
 		$this->render();
 	}
 	
+	function city()
+	{
+		$this->render('city');
+	}
+	
 }
