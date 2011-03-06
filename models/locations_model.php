@@ -76,5 +76,8 @@ class Locations_model extends CI_Model
 		$this->db->where('location_id', $location_id);
 		$this->db->update('locations', array('data' => $data));        
     }
-    
+
+    function delete_location($location_id) {
+      return $this->db->delete('locations', array('location_id'=>$location_id));
+    }
 }

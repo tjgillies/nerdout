@@ -35,7 +35,7 @@ class Checkins_model extends CI_Model
     }    
     
     function delete_checkin($checkin_id) {
-      return $this->db->delete('checkins', array('checkin_id', $checkin_id));
+      return $this->db->delete('checkins', array('checkin_id' => $checkin_id));
     }
 
     function update_checkin($checkin_id, $data) {
