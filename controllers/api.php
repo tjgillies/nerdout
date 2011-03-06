@@ -9,7 +9,8 @@ class Api extends Oauth_Controller
     {
         parent::__construct();  
         
-		$this->load->model('nerdout_model');            
+		$this->load->model('checkins_model');            
+		$this->load->model('locations_model');
 	}
 	
     function all_get()

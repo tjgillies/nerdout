@@ -1,6 +1,6 @@
 <?php
 
-class Nerdout_model extends CI_Model
+class Checkins_model extends CI_Model
 {
     
     function __construct()
@@ -8,11 +8,11 @@ class Nerdout_model extends CI_Model
         parent::__construct();
     }
     
-    function get_content($limit=8)
+    function get_checkins($limit=8)
     {
- 		$this->db->select('table.status_id, table.user_id');
- 		$this->db->from('table');    
- 		$this->db->join('users', 'users.user_id = table.user_id'); 				
+ 		$this->db->select('checkins.status_id, checkins.user_id');
+ 		$this->db->from('checkins');    
+ 		$this->db->join('users', 'users.user_id = checkins.user_id'); 				
  		$this->db->order_by('created_at', 'desc'); 
 		$this->db->limit($limit);    
  		$result = $this->db->get();	
@@ -29,9 +29,9 @@ class Nerdout_model extends CI_Model
 			'long'					=> $status_data['long'],
 			'created_at' 			=> unix_to_mysql(now())
 		);	
-		$insert 	= $this->db->insert('table', $data);
+		$insert 	= $this->db->insert('checkins', $data);
 		$status_id 	= $this->db->insert_id();
-		return $this->db->get_where('table', array('item_id' => $status_id))->row();	
+		return $this->db->get_where('checkins', array('item_id' => $status_id))->row();	
     }    
     
 }
