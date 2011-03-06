@@ -70,7 +70,7 @@ class Api extends Oauth_Controller
 	
     									
 		// Insert
-		$result = $this->checkins->add_checkins($user_id, $data);
+		$result = $this->checkins_model->add_checkin($user_id, $data);
 
 	  if ($result)
 	    {			
