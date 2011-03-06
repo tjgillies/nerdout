@@ -19,15 +19,36 @@ class Api extends Oauth_Controller
         
         if($checkins)
         {
-          /* content.content_id, content.module, content.source, content.user_id, content.content, content.content_url, content.geo_lat, content.geo_long, content.geo_accuracy, users.user_id, users.username, users.name, users.image, users.gravatar */
-            $message = array('status' => 'success', 'message' => 'Yay we found some checkins', 'data' => $checkins);
+          /* content.content_id, content.module, content.source, content.user_id, content.content, content.details, content.geo_lat, content.geo_long, content.geo_accuracy, users.user_id, users.username, users.name, users.image, users.gravatar */
+            $features = array();
+            foreach($checkins as $checkin) {
+              $features[] = array(  
+                'type' => 'Feature',
+                'id' => $checkin->content_id,
+                'geometry' => array(
+                  'type' => 'Point',
+                  'coordinates' => array(
+                    $checkin->geo_lat, $checkin->geo_long)
+                ),
+                'properties' => array(
+                  'user_id' => $checkin->user_id,
+                  'content' => $checkin->content,
+                  'content_url' => $checkin->details
+                )
+              );
+            }
+            $data = array(
+              'type' => 'FeatureCollection',
+              'features' => $features
+            );
+            $message = array('status' => 'success', 'message' => 'Yay we found some checkins', 'checkins' => $data);
         }
         else
         {
             $message = array('status' => 'error', 'message' => 'Could not find any checkins');
         }
         
-        $this->response($message, 200);   
+        $this->response(array($message), 200);   
     }
 
     function create_checkin_authd_post()
