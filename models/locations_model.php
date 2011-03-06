@@ -26,14 +26,11 @@ class Locations_model extends CI_Model
  		return $result->result();
     }
     
-    function get_locations_near($lat, $long, $day)
+    function get_locations_near($lat, $long)
     {
-		$sql = 'SELECT location_id, address, locality, region, postal, price, 
+		$sql = 'SELECT location_id, address, district, locality, region, postal, price, 
 				((latitude - '.$lat.')*(latitude - '.$lat.')+(longitude - '.$long.')*(longitude - '.$long.')) distance
 				FROM locations
-				WHERE available = 1
-				AND is_'.$day.' = 1
-				AND occupied = 0
 				ORDER BY distance ASC
 				LIMIT 0,10';
 

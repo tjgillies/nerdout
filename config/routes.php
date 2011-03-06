@@ -9,4 +9,4 @@
 *
 * Standard installed routes for Module Template. 
 */
-$route['module-template'] 			= 'module_template';
+$route['nerdout'] 			= 'nerdout';

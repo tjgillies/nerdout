@@ -5,9 +5,9 @@ class Home extends Dashboard_Controller
     {
         parent::__construct();
 
-		$this->data['page_title'] = 'Module Template';
+		$this->data['page_title'] = 'Nerdout';
 
-		$this->load->config('module_template');
+		$this->load->config('nerdout');
 	}
 	
 	function custom()

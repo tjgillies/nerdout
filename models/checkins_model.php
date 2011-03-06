@@ -7,12 +7,25 @@ class Checkins_model extends CI_Model
     {
         parent::__construct();
     }
-    
-    function get_checkins($limit=8)
+
+    function get_checkins()
     {
  		$this->db->select('checkins.status_id, checkins.user_id');
  		$this->db->from('checkins');    
- 		$this->db->join('users', 'users.user_id = checkins.user_id'); 				
+ 		$this->db->join('users', 'users.user_id = checkins.user_id');
+ 		$this->db->order_by('created_at', 'desc'); 
+		$this->db->limit($limit);    
+ 		$result = $this->db->get();	
+ 		return $result->result();	      
+    }
+    
+    function get_checkins_nearby($lat, $long)
+    {
+ 		$this->db->select('checkins.status_id, checkins.user_id');
+ 		$this->db->from('checkins');    
+ 		$this->db->join('users', 'users.user_id = checkins.user_id');
+  		$this->db->where('checkins.lat', $lat);
+		$this->db->where('checkins.long', $long);
  		$this->db->order_by('created_at', 'desc'); 
 		$this->db->limit($limit);    
  		$result = $this->db->get();	

@@ -1,15 +1,39 @@
-<h3>Recent</h3>
+	<form name="classes_basic" method="post" id="classes_basic" action="<?= base_url() ?>api/nerdout/create_checkin" enctype="multipart/form-data">
+	
+		<h3>Title</h3>
+		<p><input type="text" name="title" value="" id="title" class="input_full" /></p>
+		    
+		<input type="submit" name="publish" value="Continue" />
+	
+	</form>
+	
+<script type="text/javascript">
+$(document).ready(function()
+{
+	// Write Article
+	$("#classes_basic").bind("submit", function(eve)
+	{
+		eve.preventDefault();
 
-<p>Is a <b>core</b> 'activity feed' of items pertaining to this module that can write into your code.</p>
+		// Validation	
+		
+		var class_data = $('#classes_basic').serializeArray();
+		class_data.push({'name':'source','value':'website'});
 
-<h3>Custom</h3>
-
-<p>Here is where you do custom content that lives behind an "authenticated" page that requires a user to have an account and be logged in.</p>
-
-<p>The HTML for this file is located at:</p>
-
-<pre>/application/modules/module_template/views/home/custom</pre>
-
-<h3>Manage</h3>
-
-<p>Is a <b>core</b> list of 'content' pertaining to this module that can be edited by the owner of the content or admins</p>
+		$(this).oauthAjax(
+		{
+			oauth 		: user_data,
+			url			: $(this).attr('ACTION'),
+			type		: 'POST',
+			dataType	: 'json',
+			data		: class_data,
+	  		success		: function(result)
+	  		{
+				$('html, body').animate({scrollTop:0});
+				$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+		 	}
+		});
+		
+	});	
+});
+</script>
