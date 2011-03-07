@@ -2,10 +2,10 @@ require 'foursquare2'
 require 'yaml'
 require 'json'
 require 'oauth'
-consumer = OAuth::Consumer.new('faf4014c58fe2e711b4056e7be22982304d734edb', '1fb63e7a469882feabaaf680b134a4f5', {:site => 'http://nerdout.me'})
-access_token = OAuth::AccessToken.new(consumer, '8c9ffa6ce69e2b907861f37bf0b9dfba04d734edb', '602b0c0c3795c50cb59fd189d8ffe55e')
+config = YAML.load_file('config.yaml')
+consumer = OAuth::Consumer.new(config['nerdout_consumer_token'], config['nerdout_consumer_secret'], {:site => 'http://nerdout.me'})
+access_token = OAuth::AccessToken.new(consumer, config['nerdout_access_token'], config['nerdout_access_secret'])
 p access_token
-config =YAML::load_file('config.yaml')
 p config['oauth_token']
 client = Foursquare2::Client.new(:oauth_token => config['oauth_token'])
 #friends = client.user_friends('self').items
