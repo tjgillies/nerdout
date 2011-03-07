@@ -46,7 +46,7 @@ class Checkins_model extends CI_Model
   			'order'			    => 0,
     		'user_id'		    => $user_id,
   			'title'			    => '',
-  			'title_url'	  		=> $data->content_url,
+  			'title_url'	  		=> $data->content_id,
   			'content'		    => $data->content,
   			'details'	    	=> '',
   			'access'		    => '',
@@ -59,6 +59,7 @@ class Checkins_model extends CI_Model
   			'status'		    => 'P',
         	'created_at'      	=> $data->timestamp
     	);
+    	
   		$insert 	= $this->db->insert('content', $content_data);
   		$status_id 	= $this->db->insert_id();
   		return $this->db->get_where('content', array('content_id' => $status_id))->row();	
@@ -71,27 +72,27 @@ class Checkins_model extends CI_Model
 
     function update_checkin($checkin_id, $data) {
       $content_data = array(
-    		'site_id'			    => 1,
+    		'site_id'			=> 1,
   			'parent_id'		  	=> 0,
-  			'category_id'		  => 0,
-  			'module'		    	=> $data->module,
-  			'type'			  	  => 'checkin',
-  			'source'	    		=> $data->source,
-  			'order'			    	=> 0,
-    		'user_id'		    	=> $data->user_id,
-  			'title'			    	=> '',
+  			'category_id'		=> 0,
+  			'module'		    => $data->module,
+  			'type'			  	=> 'checkin',
+  			'source'	    	=> $data->source,
+  			'order'			    => 0,
+    		'user_id'		    => $data->user_id,
+  			'title'			    => '',
   			'title_url'	  		=> '',
-  			'content'		    	=> $data->content,
-  			'details'	    		=> $data->content_url,
-  			'access'		    	=> '',
+  			'content'		    => $data->content,
+  			'details'	    	=> $data->content_url,
+  			'access'		    => '',
   			'comments_allow'	=> 'Y',
-  			'geo_lat'		    	=> $data->geo_lat,
+  			'geo_lat'		    => $data->geo_lat,
   			'geo_long'	  		=> $data->geo_long,
   			'geo_accuracy'		=> $data->geo_accuracy,
-  			'viewed'		    	=> 'Y',
+  			'viewed'		    => 'Y',
   			'approval'	  		=> 'Y',
-  			'status'		    	=> 'P',
-        'updated_at'      => now()
+  			'status'		    => 'P',
+        'updated_at'      		=> now()
     	);
       $this->db->where('type', 'checkin');
       $this->db->where('content_id', $checkin_id);

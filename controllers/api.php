@@ -53,13 +53,9 @@ class Api extends Oauth_Controller
 
     function create_checkin_post()
     {
-		log_message('debug', 'thanerdout: '.$daemon);
-
 		$daemon = file_get_contents('php://input');
 //		$daemon = file_get_contents('http://localhost:8888/testdata.php');
 		$data	= json_decode($daemon);
-
-		log_message('debug', 'thanerdout: '.$daemon);
 		
 		// Email
 		$email	= $data->username.'@'.$data->module.'.com';
@@ -88,7 +84,7 @@ class Api extends Oauth_Controller
 				// Add Meta
 				$user_meta_data = array(
 					'url' 			=> $data->url, 
-					'location' 		=> $data->location,
+					'location' 		=> $data->user_location,
 					'checkin_count' => 0
 				);
 				
