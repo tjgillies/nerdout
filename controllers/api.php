@@ -80,9 +80,9 @@ class Api extends Oauth_Controller
 		$user_check			= $this->social_auth->get_user('email', $email);
 		$connection_check	= $this->social_auth->check_connection_user_id($data->remote_user_id, $data->module);
 
-		if ((!$user_check) && (!$connection_check))
+		if ($user_check == true) && ($connection_check == true))
 		{
-			$user_id = $user->user_id;
+			$user_id = $user_check->user_id;
 		}
 		else
 		{
