@@ -51,7 +51,7 @@ class Api extends Oauth_Controller
         $this->response(array($message), 200);   
     }
 
-    function create_checkin_authd_post()
+    function create_checkin_get()
     {
 /*    	user_id
 		name
@@ -68,21 +68,24 @@ class Api extends Oauth_Controller
 		geo_acc
 		name address city state neighborhood
 		timestamp
-*/
+
 		$daemon = file_get_contents('php://input');		
+*/
+		$daemon = file_get_contents('http://localhost:8888/testdata.php');
 		$data	= json_decode($daemon);
-		$email	= $data->username.'@'.$data->module.'.com';
 		
+		// Email
+		$email	= $data->username.'@'.$data->module.'.com';
+
 		// Site
 		if ($data->module == 'twitter') $site_id = 2;
 		else $site_id = 3;
 		
-		$user_check			= $this->social_auth->get_user('email', $email);
-		$connection_check	= $this->social_auth->check_connection_user_id($data->remote_user_id, $data->module);
-
-		if ((!$user_check) && (!$connection_check))
+		if ($connection_check = $this->social_auth->check_connection_user_id($data->remote_user_id, $data->module))
 		{
-			$user_id = $user->user_id;
+			$user_check	= $this->social_auth->get_user('email', $email);	
+		
+			$user_id = $user_check->user_id;
 		}
 		else
 		{
@@ -95,15 +98,15 @@ class Api extends Oauth_Controller
 			$user_id = $this->social_auth->social_register($data->username, $email, $additional_data);
 			
 			// Add Meta
-			$this->social_auth->update_user_meta($site_id, $user_id, 'users', array('url' => $data->url, 'location' => $location)));
+			$this->social_auth->update_user_meta($site_id, $user_id, 'users', array('url' => $data->url, 'location' => $data->location));
 
 			// Add Connection
        		$connection_data = array(
-       			'site_id'				=> site_id,
+       			'site_id'				=> $site_id,
        			'user_id'				=> $user_id,
        			'module'				=> $data->module,
-       			'type'					=> 'scrapped',
-       			'connection_user_id'	=> $data->user_id,
+       			'type'					=> 'daemon',
+       			'connection_user_id'	=> $data->remote_user_id,
        			'connection_username'	=> $data->username,
        			'auth_one'				=> '',
        			'auth_two'				=> ''
@@ -118,7 +121,17 @@ class Api extends Oauth_Controller
 	  	if ($result)
 	    {			
 			$checkin_count	= $this->social_auth->get_user_meta_meta($user_id, 'checkin_count');
-			$checkin_new 	= 1 + $checkin_count;
+			
+			print_r($checkin_count);
+			
+			if ($checkin_count)
+			{			
+				$checkin_new = 1 + $checkin_count->value;
+			}
+			else
+			{
+				$checkin_new = 1;				
+			}
 			
 			$this->social_auth->update_user_meta(1, $user_id, 'users', array('checkin_count' => $checkin_new));  
 	   

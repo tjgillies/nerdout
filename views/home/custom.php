@@ -1,11 +1,11 @@
-	<form name="classes_basic" method="post" id="classes_basic" action="<?= base_url() ?>api/nerdout/create_checkin" enctype="multipart/form-data">
-	
-		<h3>Title</h3>
-		<p><input type="text" name="title" value="" id="title" class="input_full" /></p>
-		    
-		<input type="submit" name="publish" value="Continue" />
-	
-	</form>
+<form name="classes_basic" method="post" id="classes_basic" action="<?= base_url() ?>api/nerdout/create_checkin" enctype="multipart/form-data">
+
+	<h3>Title</h3>
+	<p><input type="text" name="title" value="" id="title" class="input_full" /></p>
+	    
+	<input type="submit" name="publish" value="Continue" />
+
+</form>
 	
 <script type="text/javascript">
 $(document).ready(function()
