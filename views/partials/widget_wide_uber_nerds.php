@@ -3,7 +3,7 @@
 	<span class="nerd_points"><?= $checkin_count ?></span>
 	<span class="nerd_points_word">nerdouts</span>
 	<div class="clearfix"></div>			
-	<h3><a class="nerd_name" href="<?= $profile_link ?>" target="_blank"><?= $name ?></a></h3>
+	<h3><a class="nerd_name" href="<?= $profile_link ?>" target="_blank"><?= $profile_name ?></a></h3>
 	<ul>
 		<li>Backspace <span class="nerdout_date">2:15 PM</span></li>
 		<li>Ace Hotel <span class="nerdout_date">10:45 PM</span></li>

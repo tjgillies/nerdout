@@ -54,7 +54,6 @@ class Api extends Oauth_Controller
     function create_checkin_post()
     {
 		$daemon = file_get_contents('php://input');
-//		$daemon = file_get_contents('http://localhost:8888/testdata.php');
 		$data	= json_decode($daemon);
 		
 		// Email

@@ -29,8 +29,8 @@ class Nerdout extends Site_Controller
 		
 		foreach ($uber_nerds as $nerd)
 		{
-			$this->data['name']				= $nerd->username;
-			$this->data['profile_link']		= base_url().'nerd/'.$nerd->username;
+			$this->data['profile_name']		= $nerd->username;
+			$this->data['profile_link']		= base_url().'profile/'.$nerd->username;
 			$this->data['profile_avatar']	= str_replace('_normal', '', $nerd->image); 
 			$this->data['checkin_count'] 	= $nerd->value;
 		

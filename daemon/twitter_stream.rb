@@ -10,7 +10,7 @@ access_token 	= OAuth::AccessToken.new(consumer, config['nerdout_access_token'],
 
 p access_token
 
-TweetStream::Client.new(config['username'],config['password']).track('nerdout') do |status|
+TweetStream::Client.new(config['username'],config['password']).track('Daniel Tosh') do |status|
  #p status.keys
  screen_name	= status[:user][:screen_name]
  image_url		= status[:user][:profile_image_url]
@@ -52,6 +52,7 @@ end
 	 :module 			=> 'twitter', 
 	 :type 				=> 'tweet',
 	 :username 			=> screen_name, 
+	 :name 				=> name, 
 	 :location_name 	=> place_name, 
 	 :content 			=> status.text, 
 	 :address 			=> place_address, 
@@ -62,9 +63,8 @@ end
 	 :geo_long			=> place_long,
 	 :url 				=> user_url,
 	 :user_location 	=> location,
-	 :location			=> { :name => place_name, :address => place_address, :city => place_city, :state => place_state, :neighborhood => place_neighborhood, :country => place_country }
+	 :location			=> { :name => place_name, :address => place_address, :city => place_city, :state => place_state, :neighborhood => place_neighborhood, :country => place_country },
 	 :remote_user_id 	=> user_id
-	 
 }
  p user_hash.to_json
   #puts "[#{status.user.screen_name}] #{status.text}"
