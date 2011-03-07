@@ -31,6 +31,11 @@ rescue
 	place_long 		= nil
 	place_address	= nil
 end
+begin 
+	user_url = status[:user][:url]
+rescue
+	user_url = "http://www.twitter.com/#{screen_name}"
+end
  #coordinates 	= status[:coordinates]
  location		= status[:user][:location]
  user_id 		= status[:user][:id]
@@ -38,6 +43,7 @@ end
  user_hash = {
 	 :source 			=> 'daemon', 
 	 :module 			=> 'twitter', 
+	 :type 				=> 'tweet',
 	 :username 			=> screen_name, 
 	 :location_name 	=> place_name, 
 	 :content 			=> status.text, 
@@ -45,7 +51,7 @@ end
 	 :content_id 		=> content_id,  
 	 :timestamp 		=> mysql_time, 
 	 :image 			=> image_url, 
-	 :url 				=> "http://www.twitter.com/#{screen_name}",
+	 :url 				=> user_url,
 	 :location 			=> location,
 	 :remote_user_id 	=> user_id
 }
