@@ -10,7 +10,7 @@ access_token 	= OAuth::AccessToken.new(consumer, config['nerdout_access_token'],
 
 p access_token
 
-TweetStream::Client.new(config['username'],config['password']).track('#celebrityapprentice') do |status|
+TweetStream::Client.new(config['username'],config['password']).track('nerdout') do |status|
  #p status.keys
  screen_name	= status[:user][:screen_name]
  image_url		= status[:user][:profile_image_url]
@@ -19,6 +19,8 @@ TweetStream::Client.new(config['username'],config['password']).track('#celebrity
 rescue
 	place_name	= nil
 end
+	place_country = status[:place][:country_code]
+	
  content_id		= status[:id]
  ruby_time		= Time.parse(status[:created_at])
  mysql_time		= ruby_time.strftime("%Y-%m-%d %H:%M:%S")
@@ -39,7 +41,12 @@ end
  #coordinates 	= status[:coordinates]
  location		= status[:user][:location]
  user_id 		= status[:user][:id]
- 
+ if status[:place][:place_type] == "city"
+ 	place_city = [:place][:name]
+ end
+ if status[:place][:place_type] == "neighborhood"
+ 	place_neighborhood = [:place][:name]
+ end
  user_hash = {
 	 :source 			=> 'daemon', 
 	 :module 			=> 'twitter', 
@@ -51,9 +58,13 @@ end
 	 :content_id 		=> content_id,  
 	 :timestamp 		=> mysql_time, 
 	 :image 			=> image_url, 
+	 :geo_lat			=> place_lat,
+	 :geo_long			=> place_long,
 	 :url 				=> user_url,
-	 :location 			=> location,
+	 :user_location 	=> location,
+	 :location			=> { :name => place_name, :address => place_address, :city => place_city, :state => place_state, :neighborhood => place_neighborhood, :country => place_country }
 	 :remote_user_id 	=> user_id
+	 
 }
  p user_hash.to_json
   #puts "[#{status.user.screen_name}] #{status.text}"
