@@ -27,14 +27,21 @@ class Nerdout extends Site_Controller
 		$uber_nerds		 = $this->nerds_model->get_nerds_uber();		
 		$uber_nerds_view =  '';
 		
-		foreach ($uber_nerds as $nerd)
+		if ($uber_nerds)
 		{
-			$this->data['profile_name']		= $nerd->username;
-			$this->data['profile_link']		= base_url().'profile/'.$nerd->username;
-			$this->data['profile_avatar']	= str_replace('_normal', '', $nerd->image); 
-			$this->data['checkin_count'] 	= $nerd->value;
-		
-			$uber_nerds_view .= $this->load->view('partials/widget_wide_uber_nerds', $this->data, true);		
+			foreach ($uber_nerds as $nerd)
+			{
+				$this->data['profile_name']		= $nerd->username;
+				$this->data['profile_link']		= base_url().'profile/'.$nerd->username;
+				$this->data['profile_avatar']	= str_replace('_normal', '', $nerd->image); 
+				$this->data['checkin_count'] 	= $nerd->value;
+			
+				$uber_nerds_view .= $this->load->view('partials/widget_wide_uber_nerds', $this->data, true);		
+			}
+		}
+		else
+		{
+			$uber_nerds_view = '<h3>No Uber Nerds in this city</h3>';
 		}
 			
 		$this->data['widget_wide_uber_nerds'] = $uber_nerds_view;	

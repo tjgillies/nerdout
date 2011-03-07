@@ -8,7 +8,7 @@ class Nerds_model extends CI_Model
       parent::__construct();
     }
 
-    function get_nerds_uber($limit=20)
+    function get_nerds_uber($limit=12)
     {
 		$this->db->select('users.user_id, users.username, users.name, users.image, users.gravatar, users_meta.meta, users_meta.value');
 		$this->db->from('users');

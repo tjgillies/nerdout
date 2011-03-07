@@ -10,16 +10,16 @@ access_token 	= OAuth::AccessToken.new(consumer, config['nerdout_access_token'],
 
 p access_token
 
-TweetStream::Client.new(config['username'],config['password']).track('Daniel Tosh') do |status|
+TweetStream::Client.new(config['username'],config['password']).track(config['track_word']) do |status|
  #p status.keys
  screen_name	= status[:user][:screen_name]
  image_url		= status[:user][:profile_image_url]
  begin
 	 place_name = status[:place][:name]
 rescue
-	place_name	= nil
+	place_name	= ""
 end
-	place_country = status[:place][:country_code]
+
 	
  content_id		= status[:id]
  ruby_time		= Time.parse(status[:created_at])
@@ -31,7 +31,7 @@ begin
 rescue
 	place_lat 		= nil
 	place_long 		= nil
-	place_address	= nil
+	place_address	= ""
 end
 begin 
 	user_url = status[:user][:url]
@@ -41,11 +41,22 @@ end
  #coordinates 	= status[:coordinates]
  location		= status[:user][:location]
  user_id 		= status[:user][:id]
- if status[:place][:place_type] == "city"
- 	place_city = [:place][:name]
+ begin
+ 
+	 if status[:place][:place_type] == "city"
+		place_city = [:place][:name]
+	 end
+	 if status[:place][:place_type] == "neighborhood"
+		place_neighborhood = [:place][:name]
+	 end
+ rescue
+ 	place_city = ""
+ 	place_neighborhood = ""
  end
- if status[:place][:place_type] == "neighborhood"
- 	place_neighborhood = [:place][:name]
+ begin
+	 place_country = status[:place][:country_code]
+ rescue
+ 	place_country = ""
  end
  user_hash = {
 	 :source 			=> 'daemon', 
@@ -63,7 +74,7 @@ end
 	 :geo_long			=> place_long,
 	 :url 				=> user_url,
 	 :user_location 	=> location,
-	 :location			=> { :name => place_name, :address => place_address, :city => place_city, :state => place_state, :neighborhood => place_neighborhood, :country => place_country },
+	 :location			=> { :name => place_name, :address => place_address, :city => place_city, :neighborhood => place_neighborhood, :country => place_country },
 	 :remote_user_id 	=> user_id
 }
  p user_hash.to_json
