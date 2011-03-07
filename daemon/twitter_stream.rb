@@ -52,7 +52,7 @@ end
 	 :content_id 		=> content_id,  
 	 :timestamp 		=> mysql_time, 
 	 :image 			=> image_url, 
-	 :url 				=> user_id,
+	 :url 				=> user_url,
 	 :location 			=> location,
 	 :remote_user_id 	=> user_id
 }
