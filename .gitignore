@@ -25,3 +25,4 @@ publish
 
 # files
 build/buildinfo.properties
+daemon/config.yaml
