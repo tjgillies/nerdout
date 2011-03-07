@@ -80,5 +80,5 @@ end
 }
  p user_hash.to_json
   #puts "[#{status.user.screen_name}] #{status.text}"
-  p access_token.post("/api/nerdout/create_checkin", user_hash.to_json,{'Content-Type'=>'application/json'})
+  p access_token.post("/api/nerdout/create_checkin", user_hash.to_json,{'Content-Type'=>'application/json'}).body
 end
