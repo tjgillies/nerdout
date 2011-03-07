@@ -83,8 +83,7 @@ class Api extends Oauth_Controller
 		
 		if ($connection_check = $this->social_auth->check_connection_user_id($data->remote_user_id, $data->module))
 		{
-			$user_check	= $this->social_auth->get_user('email', $email);	
-		
+			$user_check	= $this->social_auth->get_user('email', $email);		
 			$user_id = $user_check->user_id;
 		}
 		else
@@ -98,14 +97,20 @@ class Api extends Oauth_Controller
 			$user_id = $this->social_auth->social_register($data->username, $email, $additional_data);
 			
 			// Add Meta
-			$this->social_auth->update_user_meta($site_id, $user_id, 'users', array('url' => $data->url, 'location' => $data->location));
+			$meta_data = array(
+				'url' 			=> $data->url, 
+				'location' 		=> $data->location,
+				'checkin_count' => 0
+			);
+			
+			$this->social_auth->update_user_meta(config_item('site_id'), $user_id, 'users', $meta_data);
 
 			// Add Connection
        		$connection_data = array(
        			'site_id'				=> $site_id,
        			'user_id'				=> $user_id,
        			'module'				=> $data->module,
-       			'type'					=> 'daemon',
+       			'type'					=> 'primary',
        			'connection_user_id'	=> $data->remote_user_id,
        			'connection_username'	=> $data->username,
        			'auth_one'				=> '',
@@ -116,28 +121,27 @@ class Api extends Oauth_Controller
 		}
 		    									
 		// Insert
-		$result = $this->checkins_model->add_checkin($user_id, $data);
-
-	  	if ($result)
-	    {			
-			if ($checkin_count = $this->social_auth->get_user_meta_row($user_id, 'checkin_count'))
-			{			
-				$checkin_new = 1 + $checkin_count->value;
-			}
-			else
-			{
-				$checkin_new = 1;				
-			}
-			
-			$this->social_auth->update_user_meta(1, $user_id, 'users', array('checkin_count' => $checkin_new));  
-	   
-			// API Response
-        	$message = array('status' => 'success', 'message' => 'Awesome we added your checkin', 'data' => $result);
-        }
-        else
-        {
-	        $message = array('status' => 'error', 'message' => 'Oops we were unable to add your checkin');
-        }	
+		if (!$check_checkin = $this->social_igniter->get_content_title_url($data->type, $data->content_url))
+		{	
+		  	if ($result = $this->checkins_model->add_checkin($user_id, $data))
+		    {			
+				$checkin_count	= $this->social_auth->get_user_meta_row($user_id, 'checkin_count');
+				$checkin_new 	= 1 + $checkin_count->value;
+				
+				$this->social_auth->update_user_meta(1, $user_id, 'users', array('checkin_count' => $checkin_new));  
+		   
+				// API Response
+	        	$message = array('status' => 'success', 'message' => 'Awesome we added your checkin', 'data' => $result);
+	        }
+	        else
+	        {
+		        $message = array('status' => 'error', 'message' => 'Oops we were unable to add your checkin');
+	        }
+		}
+		else
+		{
+			$message = array('status' => 'error', 'message' => 'That checkin already exists');		
+		}
 
         $this->response($message, 200);
     }
