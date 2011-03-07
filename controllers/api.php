@@ -120,11 +120,7 @@ class Api extends Oauth_Controller
 
 	  	if ($result)
 	    {			
-			$checkin_count	= $this->social_auth->get_user_meta_meta($user_id, 'checkin_count');
-			
-			print_r($checkin_count);
-			
-			if ($checkin_count)
+			if ($checkin_count = $this->social_auth->get_user_meta_row($user_id, 'checkin_count'))
 			{			
 				$checkin_new = 1 + $checkin_count->value;
 			}
@@ -136,7 +132,7 @@ class Api extends Oauth_Controller
 			$this->social_auth->update_user_meta(1, $user_id, 'users', array('checkin_count' => $checkin_new));  
 	   
 			// API Response
-        	$message = array('status' => 'success', 'message' => 'Awesome we added your checkin', 'data' => $result['content']);
+        	$message = array('status' => 'success', 'message' => 'Awesome we added your checkin', 'data' => $result);
         }
         else
         {
