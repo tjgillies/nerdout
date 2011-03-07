@@ -114,7 +114,7 @@ class Api extends Oauth_Controller
 		}
 		    									
 		// Insert
-		$check_checkin = $this->social_igniter->get_content_title_url($data->type, $data->content_url);
+		$check_checkin = $this->social_igniter->get_content_title_url($data->type, $data->content_id);
 		
 		if ((!$check_checkin) && ($user_exists))
 		{	
