@@ -14,6 +14,7 @@ TweetStream::Client.new(config['username'],config['password']).track(config['tra
  #p status.keys
  screen_name	= status[:user][:screen_name]
  image_url		= status[:user][:profile_image_url]
+ name 			= status[:user][:name]
  begin
 	 place_name = status[:place][:name]
 rescue
