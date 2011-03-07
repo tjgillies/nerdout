@@ -1,0 +1,11 @@
+api_endpoint: http://nerdout.me
+username: twitter username
+password: twitter password
+foursquare_token:
+foursquare_secret:
+oauth_token:
+nerdout_consumer_token:
+nerdout_consumer_secret:
+nerdout_access_token:
+nerdout_access_secret:
+track_word: lolcats

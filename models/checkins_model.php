@@ -25,7 +25,7 @@ class Checkins_model extends CI_Model
    		$this->db->select('content.content_id, content.module, content.source, content.user_id, content.content, content.details, content.geo_lat, content.geo_long, content.geo_accuracy, users.user_id, users.username, users.name, users.image, users.gravatar');
    		$this->db->from('content');    
    		$this->db->join('users', 'users.user_id = checkins.user_id');
-      $this->db->where('content.type', 'checkin');
+      	$this->db->where('content.type', 'checkin');
   		$this->db->where('content.geo_lat', $lat);
   		$this->db->where('content.geo_long', $long);
    		$this->db->order_by('content.created_at', 'desc'); 
@@ -37,28 +37,29 @@ class Checkins_model extends CI_Model
     function add_checkin($user_id, $data)
     {
     	$content_data = array(
-    		'site_id'			    => 1,
+    		'site_id'			=> 1,
   			'parent_id'		  	=> 0,
-  			'category_id'		  => 0,
-  			'module'		    	=> $data->module,
-  			'type'			  	  => 'checkin',
-  			'source'	    		=> $data->source,
-  			'order'			    	=> 0,
-    		'user_id'		    	=> $user_id,
-  			'title'			    	=> '',
-  			'title_url'	  		=> '',
-  			'content'		    	=> $data->content,
-  			'details'	    		=> $data->content_url,
-  			'access'		    	=> '',
+  			'category_id'		=> 0,
+  			'module'		    => $data->module,
+  			'type'			  	=> $data->type,
+  			'source'	    	=> $data->source,
+  			'order'			    => 0,
+    		'user_id'		    => $user_id,
+  			'title'			    => '',
+  			'title_url'	  		=> $data->content_id,
+  			'content'		    => $data->content,
+  			'details'	    	=> '',
+  			'access'		    => '',
   			'comments_allow'	=> 'Y',
-  			'geo_lat'		    	=> $data->geo_lat,
+  			'geo_lat'		   	=> $data->geo_lat,
   			'geo_long'	  		=> $data->geo_long,
   			'geo_accuracy'		=> $data->geo_accuracy,
-  			'viewed'		    	=> 'Y',
+  			'viewed'		    => 'Y',
   			'approval'	  		=> 'Y',
-  			'status'		    	=> 'P',
-        'created_at'      => now()
+  			'status'		    => 'P',
+        	'created_at'      	=> $data->timestamp
     	);
+    	
   		$insert 	= $this->db->insert('content', $content_data);
   		$status_id 	= $this->db->insert_id();
   		return $this->db->get_where('content', array('content_id' => $status_id))->row();	
@@ -71,27 +72,27 @@ class Checkins_model extends CI_Model
 
     function update_checkin($checkin_id, $data) {
       $content_data = array(
-    		'site_id'			    => 1,
+    		'site_id'			=> 1,
   			'parent_id'		  	=> 0,
-  			'category_id'		  => 0,
-  			'module'		    	=> $data->module,
-  			'type'			  	  => 'checkin',
-  			'source'	    		=> $data->source,
-  			'order'			    	=> 0,
-    		'user_id'		    	=> $data->user_id,
-  			'title'			    	=> '',
+  			'category_id'		=> 0,
+  			'module'		    => $data->module,
+  			'type'			  	=> 'checkin',
+  			'source'	    	=> $data->source,
+  			'order'			    => 0,
+    		'user_id'		    => $data->user_id,
+  			'title'			    => '',
   			'title_url'	  		=> '',
-  			'content'		    	=> $data->content,
-  			'details'	    		=> $data->content_url,
-  			'access'		    	=> '',
+  			'content'		    => $data->content,
+  			'details'	    	=> $data->content_url,
+  			'access'		    => '',
   			'comments_allow'	=> 'Y',
-  			'geo_lat'		    	=> $data->geo_lat,
+  			'geo_lat'		    => $data->geo_lat,
   			'geo_long'	  		=> $data->geo_long,
   			'geo_accuracy'		=> $data->geo_accuracy,
-  			'viewed'		    	=> 'Y',
+  			'viewed'		    => 'Y',
   			'approval'	  		=> 'Y',
-  			'status'		    	=> 'P',
-        'updated_at'      => now()
+  			'status'		    => 'P',
+        'updated_at'      		=> now()
     	);
       $this->db->where('type', 'checkin');
       $this->db->where('content_id', $checkin_id);
