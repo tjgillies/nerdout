@@ -38,7 +38,8 @@ client.recent_checkins.each do |user|
 		:content => shout,
 		:address => address,
 		:image => image,
-		:location => location
+		:location => location,
+		:type => 'checkin'
 	}.to_json
 	p access_token.post("/api/nerdout/create_checkin", foo.to_json,{'Content-Type'=>'application/json'})
 end
