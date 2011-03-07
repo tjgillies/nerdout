@@ -11,7 +11,7 @@ access_token 	= OAuth::AccessToken.new(consumer, config['nerdout_access_token'],
 
 p access_token
 
-TweetStream::Client.new(config['username'],config['password']).track('nerdout') do |status|
+TweetStream::Client.new(config['username'],config['password']).track('nerd') do |status|
  #p status.keys
  screen_name	= status[:user][:screen_name]
  image_url		= status[:user][:profile_image_url]
@@ -52,6 +52,8 @@ end
 	 :content_id 		=> content_id,  
 	 :timestamp 		=> mysql_time, 
 	 :image 			=> image_url, 
+	 :geo_lat			=> place_lat,
+	 :geo_long			=> place_long,
 	 :url 				=> user_url,
 	 :location 			=> location,
 	 :remote_user_id 	=> user_id
