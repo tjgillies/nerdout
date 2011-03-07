@@ -1,3 +1,4 @@
+api_endpoint: http://nerdout.me
 username: twitter username
 password: twitter password
 foursquare_token:

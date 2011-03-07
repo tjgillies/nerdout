@@ -3,15 +3,14 @@ require 'tweetstream'
 require 'json'
 require 'time'
 require 'oauth'
-require 'json'
 
 config			= YAML.load_file('config.yaml')
-consumer 		= OAuth::Consumer.new(config['nerdout_consumer_token'], config['nerdout_consumer_secret'], {:site => 'http://nerdout.me'})
+consumer 		= OAuth::Consumer.new(config['nerdout_consumer_token'], config['nerdout_consumer_secret'], {:site => config['api_endpoint']})
 access_token 	= OAuth::AccessToken.new(consumer, config['nerdout_access_token'], config['nerdout_access_secret'])
 
 p access_token
 
-TweetStream::Client.new(config['username'],config['password']).track('nerd') do |status|
+TweetStream::Client.new(config['username'],config['password']).track('nerdout') do |status|
  #p status.keys
  screen_name	= status[:user][:screen_name]
  image_url		= status[:user][:profile_image_url]
