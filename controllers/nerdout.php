@@ -8,11 +8,12 @@ class Nerdout extends Site_Controller
 		$this->load->config('nerdout');
 		
 		$this->load->model('nerds_model');
+		
+		$this->data['widgets_content_wide']	= '';
 	}
 	
 	function index()
 	{
-		$this->data['page_title'] = 'Nerdout';
 		$this->render('landing');	
 	}
 
@@ -24,8 +25,9 @@ class Nerdout extends Site_Controller
 	
 	function city()
 	{
-		$uber_nerds		 = $this->nerds_model->get_nerds_uber();		
-		$uber_nerds_view =  '';
+		$uber_nerds		 	= $this->nerds_model->get_nerds_uber();		
+		$uber_nerds_view 	=  '';
+		$this_city			= ucwords($this->uri->segment(2));
 		
 		if ($uber_nerds)
 		{
@@ -35,8 +37,8 @@ class Nerdout extends Site_Controller
 				$this->data['profile_link']		= base_url().'profile/'.$nerd->username;
 				$this->data['profile_avatar']	= str_replace('_normal', '', $nerd->image); 
 				$this->data['checkin_count'] 	= $nerd->value;
-			
-				$uber_nerds_view .= $this->load->view('partials/widget_wide_uber_nerds', $this->data, true);		
+							
+				$uber_nerds_view .= $this->load->view('partials/widget_content_wide_uber', $this->data, true);		
 			}
 		}
 		else
@@ -44,9 +46,13 @@ class Nerdout extends Site_Controller
 			$uber_nerds_view = '<h3>No Uber Nerds in this city</h3>';
 		}
 			
-		$this->data['widget_wide_uber_nerds'] = $uber_nerds_view;	
+		$this->data['widgets_content_wide_uber']= $uber_nerds_view;
+		$this->data['widgets_content_wide']	   .= $this->load->view('partials/widget_content_wide_all', $this->data, true);
+		
+		$this->data['this_city']				= $this_city;
+		$this->data['site_title']				= 'Nerdouts in '.$this_city;	
 			
-		$this->render('city');
+		$this->render('site_wide');
 	}
 	
 }

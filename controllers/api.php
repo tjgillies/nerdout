@@ -19,28 +19,24 @@ class Api extends Oauth_Controller
         
         if($checkins)
         {
-          /* content.content_id, content.module, content.source, content.user_id, content.content, content.details, content.geo_lat, content.geo_long, content.geo_accuracy, users.user_id, users.username, users.name, users.image, users.gravatar */
             $features = array();
-            foreach($checkins as $checkin) {
-              $features[] = array(  
-                'type' => 'Feature',
-                /*'properties' => array(
-                  'id' => $checkin->content_id,
-                  'user_id' => $checkin->user_id,
-                  'content' => $checkin->content,
-                  'content_url' => $checkin->details
-                ),*/
-                'geometry' => array(
-                  'type' => 'Point',
-                  'coordinates' => array(
-                    $checkin->geo_long, $checkin->geo_lat)
-                )
-              );
+            
+            foreach($checkins as $checkin)
+            {
+				$features[] = array(  
+					'type' 			=> 'Feature',
+					'geometry'		=> array(
+					    'type' 			=> 'Point',
+					    'coordinates'	=> array($checkin->geo_long, $checkin->geo_lat)
+					)
+				);
             }
+            
             $data = array(
-              'type' => 'FeatureCollection',
-              'features' => $features
+            	'type'		=> 'FeatureCollection',
+            	'features'	=> $features
             );
+            
             $message = array('status' => 'success', 'message' => 'Yay we found some checkins', 'checkins' => $data);
         }
         else
@@ -123,6 +119,7 @@ class Api extends Oauth_Controller
 				$checkin_count	= $this->social_auth->get_user_meta_row($user_id, 'checkin_count');
 				$checkin_new 	= 1 + $checkin_count->value;
 				
+				// Update Checkin Count
 				$this->social_auth->update_user_meta(1, $user_id, 'users', array('checkin_count' => $checkin_new));  
 		   
 				// API Response

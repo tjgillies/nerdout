@@ -12,4 +12,13 @@
 * Description: this file Social Igniter
 */
 
-$config['custom_value']		= '';
+$config['current_cities'] = array('portland');
+$config['cities_details'] = array(
+	'portland'	=> array(
+		'name'		=> 'Portland, Oregon',
+		'city'		=> 'Portland',
+		'state'		=> 'Oregon',
+		'country'	=> 'US',
+		'geo_box'	=> array('45.000', '123.00')
+	)
+);
