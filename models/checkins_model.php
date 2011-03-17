@@ -53,7 +53,7 @@ class Checkins_model extends CI_Model
   			'comments_allow'	=> 'Y',
   			'geo_lat'		   	=> $data->geo_lat,
   			'geo_long'	  		=> $data->geo_long,
-  			'geo_accuracy'		=> $data->geo_accuracy,
+  			'geo_accuracy'		=> '',
   			'viewed'		    => 'Y',
   			'approval'	  		=> 'Y',
   			'status'		    => 'P',
