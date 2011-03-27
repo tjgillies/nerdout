@@ -108,12 +108,54 @@ class Api extends Oauth_Controller
 				$user_message	= 'User Not Created. ';
 			}
 		}
-		    									
+		
+		// Check Location
+    	$place_data = array(
+    		'site_id'			=> config_item('site_id'),
+			'parent_id'			=> 0,
+			'category_id'		=> 0,
+			'module'			=> 'places',
+			'type'				=> 'place',
+			'source'			=> $data->souce,
+			'order'				=> 0,
+    		'user_id'			=> $user_id,
+			'title'				=> $data->location->name,
+			'title_url'			=> form_title_url($data->location->name, ''),
+			'content'			=> '',
+			'details'			=> '',
+			'access'			=> 'E',
+			'comments_allow'	=> config_item('places_comments_allow'),
+			'geo_lat'			=> $data->geo_lat,
+			'geo_long'			=> $data->geo_long,
+			'viewed'			=> 'Y',
+			'approval'			=> 'Y',
+			'status'			=> 'P'  			
+    	);
+
 		// Insert
+		$add_place = $this->social_igniter->add_content($content_data);	    	
+
+    	if ($add_place)
+	    {			
+			// Add Place
+			$place_data = array(
+				'content_id'	=> $add_place['content']->content_id,
+				'address'		=> $data->location->address,
+				'district'		=> $data->location->district,
+				'locality'		=> $data->location->locality,
+				'region'		=> $data->location->region,
+				'country'		=> $data->location->country,
+				'postal'		=> $data->location->postal
+			);
+			
+			$place = $this->social_tools->add_place($place_data);			
+        }		
+		    									
+		// Check Checkin / Insert
 		$check_checkin = $this->social_igniter->get_content_title_url($data->type, $data->content_id);
 		
 		if ((!$check_checkin) && ($user_exists))
-		{	
+		{
 		  	if ($result = $this->checkins_model->add_checkin($user_id, $data))
 		    {			
 				$checkin_count	= $this->social_auth->get_user_meta_row($user_id, 'checkin_count');

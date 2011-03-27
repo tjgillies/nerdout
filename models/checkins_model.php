@@ -10,7 +10,7 @@ class Checkins_model extends CI_Model
 
     function get_checkins($limit=8)
     {
- 		  $this->db->select('content.content_id, content.module, content.source, content.user_id, content.content, content.details, content.geo_lat, content.geo_long, content.geo_accuracy, users.user_id, users.username, users.name, users.image, users.gravatar');
+ 		  $this->db->select('content.content_id, content.module, content.source, content.user_id, content.content, content.details, content.geo_lat, content.geo_long, users.user_id, users.username, users.name, users.image, users.gravatar');
  		  $this->db->from('content');
  		  $this->db->join('users', 'users.user_id = content.user_id');
  		  $this->db->order_by('content.created_at', 'desc');
@@ -22,7 +22,7 @@ class Checkins_model extends CI_Model
     
     function get_checkins_nearby($lat, $long, $limit=8)
     {
-   		$this->db->select('content.content_id, content.module, content.source, content.user_id, content.content, content.details, content.geo_lat, content.geo_long, content.geo_accuracy, users.user_id, users.username, users.name, users.image, users.gravatar');
+   		$this->db->select('content.content_id, content.module, content.source, content.user_id, content.content, content.details, content.geo_lat, content.geo_long, users.user_id, users.username, users.name, users.image, users.gravatar');
    		$this->db->from('content');    
    		$this->db->join('users', 'users.user_id = checkins.user_id');
       	$this->db->where('content.type', 'checkin');
@@ -53,7 +53,6 @@ class Checkins_model extends CI_Model
   			'comments_allow'	=> 'Y',
   			'geo_lat'		   	=> $data->geo_lat,
   			'geo_long'	  		=> $data->geo_long,
-  			'geo_accuracy'		=> '',
   			'viewed'		    => 'Y',
   			'approval'	  		=> 'Y',
   			'status'		    => 'P',
@@ -88,7 +87,6 @@ class Checkins_model extends CI_Model
   			'comments_allow'	=> 'Y',
   			'geo_lat'		    => $data->geo_lat,
   			'geo_long'	  		=> $data->geo_long,
-  			'geo_accuracy'		=> $data->geo_accuracy,
   			'viewed'		    => 'Y',
   			'approval'	  		=> 'Y',
   			'status'		    => 'P',
