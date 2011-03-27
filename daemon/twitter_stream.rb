@@ -26,8 +26,8 @@ end
  ruby_time		= Time.parse(status[:created_at])
  mysql_time		= ruby_time.strftime("%Y-%m-%d %H:%M:%S")
 begin 
- place_lat 		= status[:place][:bounding_box][:coordindates].first.first
- place_long 	= status[:place][:bounding_box][:coordindates].first[1]
+ place_lat 		= status[:place][:bounding_box][:coordinates].first.first[1]
+ place_long 	= status[:place][:bounding_box][:coordinates].first.first[0]
  place_address 	= status[:place][:attributes][:street_address]
 rescue
 	place_lat 		= nil
@@ -75,7 +75,7 @@ end
 	 :geo_long			=> place_long,
 	 :url 				=> user_url,
 	 :user_location 	=> location,
-	 :location			=> { :name => place_name, :address => place_address, :city => place_city, :neighborhood => place_neighborhood, :country => place_country },
+	 :location			=> { :name => place_name, :address => place_address, :district => place_neighborhood, :locality => place_city, :country => place_country, :postal => ""},
 	 :remote_user_id 	=> user_id
 }
  p user_hash.to_json

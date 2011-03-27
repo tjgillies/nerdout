@@ -59,9 +59,8 @@ class Checkins_model extends CI_Model
         	'created_at'      	=> $data->timestamp
     	);
     	
-  		$insert 	= $this->db->insert('content', $content_data);
-  		$status_id 	= $this->db->insert_id();
-  		return $this->db->get_where('content', array('content_id' => $status_id))->row();	
+  		$insert = $this->db->insert('content', $content_data);
+  		return $this->db->get_where('content', array('content_id' => $this->db->insert_id()))->row();	
     }    
     
     function delete_checkin($checkin_id) {
