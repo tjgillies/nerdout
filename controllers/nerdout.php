@@ -37,8 +37,9 @@ class Nerdout extends Site_Controller
 				$this->data['profile_link']		= base_url().'profile/'.$nerd->username;
 				$this->data['profile_avatar']	= $this->social_igniter->profile_image($nerd->user_id, $nerd->image, $nerd->gravatar, 'medium'); 
 				$this->data['checkin_count'] 	= $nerd->value;
-							
-				$uber_nerds_view .= $this->load->view('partials/widget_content_wide_uber', $this->data, true);		
+				$this->data['checkins']			= $this->social_igniter->get_timeline_user_view($nerd->user_id, 'type', 'checkin', 4);
+
+				$uber_nerds_view .= $this->load->view('partials/widget_content_wide_uber', $this->data, true);
 			}
 		}
 		else

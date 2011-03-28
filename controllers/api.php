@@ -62,6 +62,7 @@ class Api extends Oauth_Controller
 		{
 			$user_check		= $this->social_auth->get_user('email', $email);		
 			$user_id		= $user_check->user_id;
+			$username		= $user_check->username;
 			$user_exists 	= TRUE;
 			$user_message	= 'User Exists. ';
 		}
@@ -73,9 +74,7 @@ class Api extends Oauth_Controller
 			if (($data->image) && ($data->module == 'twitter'))
 			{
 				// If non default image
-				if (($data->image) && (!preg_match('/default_profile_/', $data->image))) $process_image = TRUE;
-				
-				// If image, snatch it up					
+				if (($data->image) && (!preg_match('/default_profile_/', $data->image))) $process_image = TRUE;				
 				if ($process_image)
 				{
 			   		$image_full	= str_replace('_normal', '', $data->image); 
@@ -94,9 +93,9 @@ class Api extends Oauth_Controller
 			);
 		
 			if ($user_id = $this->social_auth->social_register($data->username, $email, $additional_data))
-			{			
+			{
 				// Add Meta
-				$user_meta_data = array(
+			 	$user_meta_data = array(
 					'url' 			=> $data->url, 
 					'location' 		=> $data->user_location,
 					'checkin_count' => 0
@@ -117,7 +116,9 @@ class Api extends Oauth_Controller
 	       		);
 	 
 				$this->social_auth->add_connection($connection_data);
-				
+
+				// User Data
+				$username		= $data->username;
 				$user_exists 	= TRUE;
 				$user_message	= 'User Created. ';
 				
@@ -178,13 +179,14 @@ class Api extends Oauth_Controller
 					'status'			=> 'P'  			
 		    	);
 	
-				$add_place = $this->social_igniter->add_content($place_data);	    	
+				$add_place	= $this->social_igniter->add_content($place_data);
+				$place_id	= $add_place['content']->content_id;
 	
 				// Add Place	
 		    	if ($add_place)
 			    {			
 					$place_address_data = array(
-						'content_id'	=> $add_place['content']->content_id,
+						'content_id'	=> $place_id,
 						'address'		=> $data->location->address,
 						'district'		=> $data->location->district,
 						'locality'		=> $data->location->locality,
@@ -193,23 +195,52 @@ class Api extends Oauth_Controller
 						'postal'		=> $data->location->postal
 					);
 					
-					$place = $this->social_tools->add_place($place_address_data);			
+					$place_address = $this->social_tools->add_place($place_address_data);			
 		        }
 			}
-		}		
+			else
+			{
+				$place_id = $check_place->content_id;
+			}
+		}
 		    									
 		// Check Checkin / Insert
 		$check_checkin = $this->social_igniter->get_content_title_url($data->type, $data->content_id);
 		
 		if ((!$check_checkin) && ($user_exists))
 		{
-		  	if ($result = $this->checkins_model->add_checkin($user_id, $data))
-		    {			
+		  	if ($result = $this->checkins_model->add_content_checkin($user_id, $data))
+		    {
+				// Increment Checkin Count
 				$checkin_count	= $this->social_auth->get_user_meta_row($user_id, 'checkin_count');
 				$checkin_new 	= 1 + $checkin_count->value;
-				
-				// Update Checkin Count
+
 				$this->social_auth->update_user_meta(1, $user_id, 'users', array('checkin_count' => $checkin_new));  
+				
+				
+				// Checkin Activity
+				$activity_info = array(
+					'site_id'		=> config_item('site_id'),
+					'user_id'		=> $user_id,
+					'verb'			=> 'checkin',
+					'module'		=> 'nerdout',
+					'type'			=> 'checkin',
+					'content_id'	=> 0 // To be 'event_id' once that feature is written
+				);
+
+				$activity_data = array(
+					'title'		=> $data->location->name,
+					'content'	=> '',
+					'url'		=> base_url().'places/view/'.$place_id,
+					'place_id'	=> $place_id,
+					'geo_lat' 	=> $data->geo_lat,
+					'geo_long'	=> $data->geo_long
+				);
+				
+				// Add Activity
+				$this->social_igniter->add_activity($activity_info, $activity_data);
+
+
 		   
 				// API Response
 	        	$message = array('status' => 'success', 'message' => $user_message.'Awesome we added your checkin', 'data' => $result);

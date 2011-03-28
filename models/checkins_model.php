@@ -34,7 +34,7 @@ class Checkins_model extends CI_Model
    		return $result->result();	      
     }
     
-    function add_checkin($user_id, $data)
+    function add_content_checkin($user_id, $data)
     {
     	$content_data = array(
     		'site_id'			=> 1,
@@ -49,8 +49,9 @@ class Checkins_model extends CI_Model
   			'title_url'	  		=> $data->content_id,
   			'content'		    => $data->content,
   			'details'	    	=> '',
-  			'access'		    => '',
+  			'access'		    => 'E',
   			'comments_allow'	=> 'Y',
+  			'comments_count'	=> 0,
   			'geo_lat'		   	=> $data->geo_lat,
   			'geo_long'	  		=> $data->geo_long,
   			'viewed'		    => 'Y',

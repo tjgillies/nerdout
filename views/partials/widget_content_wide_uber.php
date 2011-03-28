@@ -4,10 +4,9 @@
 	<div class="clear"></div>			
 	<a class="nerd_name" href="<?= $profile_link ?>" target="_blank"><?= $profile_name ?></a>
 	<ul>
-		<li>Backspace <span class="nerdout_date">2:15 PM</span></li>
-		<li>Ace Hotel <span class="nerdout_date">10:45 PM</span></li>
-		<li>Stumptown <span class="nerdout_date">7:15 AM</span></li>
-		<li>Albina Press <span class="nerdout_date">5:15 PM</span></li>
+		<?php foreach($checkins as $checkin): $place = json_decode($checkin->data); ?>
+		<li><a href="<?= $place->url ?>"><?= character_limiter($place->title, 16) ?></a> <span class="nerdout_date"><?= format_datetime('TIME', $checkin->created_at) ?></span></li>
+		<?php endforeach; ?>
 	</ul>
-	<p><a href="http://twitter.com/brennannovak" target="_blank">Follow this nerd</a></p>
+	<p><a href="<?= $profile_link ?>" target="_blank">Follow</a></p>
 </div>
