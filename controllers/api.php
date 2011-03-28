@@ -67,10 +67,30 @@ class Api extends Oauth_Controller
 		}
 		else
 		{
+			$process_image = FALSE;
+		
+			// If Twitter & has image
+			if (($data->image) && ($data->module == 'twitter'))
+			{
+				// If non default image
+				if (($data->image) && (!preg_match('/default_profile_/', $data->image))) $process_image = TRUE;
+				
+				// If image, snatch it up					
+				if ($process_image)
+				{
+			   		$image_full	= str_replace('_normal', '', $data->image); 
+					$image_name	= $data->username.'.'.pathinfo($image_full, PATHINFO_EXTENSION);
+			    }
+			    else
+			    {
+			    	$image_name	= "";
+			    }
+			}
+		
 			// Add User
 			$additional_data = array(
 				'name'	=> $data->name,
-				'image'	=> $data->image
+				'image'	=> $image_name
 			);
 		
 			if ($user_id = $this->social_auth->social_register($data->username, $email, $additional_data))
@@ -100,6 +120,26 @@ class Api extends Oauth_Controller
 				
 				$user_exists 	= TRUE;
 				$user_message	= 'User Created. ';
+				
+	    		// Process Image	        	
+				if ($process_image)
+	    		{
+	        		$this->load->model('image_model');
+	
+	        		// Snatch Twitter Image
+	        		$image_save	= $image_name;
+					$this->image_model->get_external_image($image_full, config_item('uploads_folder').$image_save);
+	
+					// Process New Images
+					$image_size 	= getimagesize(config_item('uploads_folder').$image_save);
+					$file_data		= array('file_name'	=> $image_save, 'image_width' => $image_size[0], 'image_height' => $image_size[1]);
+					$image_sizes	= array('full', 'large', 'medium', 'small');
+					$create_path	= config_item('users_images_folder').$user_id.'/';
+	
+					$this->image_model->make_images($file_data, 'users', $image_sizes, $create_path, TRUE);
+	
+					unlink(config_item('uploads_folder').$image_save);
+				}				
 			}
 			else
 			{
@@ -128,7 +168,7 @@ class Api extends Oauth_Controller
 					'title'				=> $data->location->name,
 					'title_url'			=> $title_url,
 					'content'			=> '',
-					'details'			=> $data->location->,
+					'details'			=> '',
 					'access'			=> 'E',
 					'comments_allow'	=> 'Y',
 					'geo_lat'			=> $data->geo_lat,

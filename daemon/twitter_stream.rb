@@ -75,7 +75,7 @@ end
 	 :geo_long			=> place_long,
 	 :url 				=> user_url,
 	 :user_location 	=> location,
-	 :location			=> { :name => place_name, :address => place_address, :district => place_neighborhood, :locality => place_city, :country => place_country, :postal => ""},
+	 :location			=> { :name => place_name, :address => place_address, :district => place_neighborhood, :locality => place_city, :region => '', :country => place_country, :postal => ""},
 	 :remote_user_id 	=> user_id
 }
  p user_hash.to_json

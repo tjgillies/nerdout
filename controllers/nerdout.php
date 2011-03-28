@@ -35,7 +35,7 @@ class Nerdout extends Site_Controller
 			{
 				$this->data['profile_name']		= $nerd->name;
 				$this->data['profile_link']		= base_url().'profile/'.$nerd->username;
-				$this->data['profile_avatar']	= str_replace('_normal', '', $nerd->image); 
+				$this->data['profile_avatar']	= $this->social_igniter->profile_image($nerd->user_id, $nerd->image, $nerd->gravatar, 'medium'); 
 				$this->data['checkin_count'] 	= $nerd->value;
 							
 				$uber_nerds_view .= $this->load->view('partials/widget_content_wide_uber', $this->data, true);		
