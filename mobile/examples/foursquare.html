@@ -1,0 +1,19 @@
+<meta name="viewport" content="width=device-width" />
+<div id='venues'>
+<p>Nearby venues:</p>
+</div>
+<script id='hackscript'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script>
+
+if (!location.hash.match(/access_token/)){
+	window.location.href = 'https://foursquare.com/oauth2/authenticate?client_id=REHG3JHAMO02VCAHHZMK2JUVX1CKOJER0O0GH1PIJUPYB234=&response_type=token&redirect_uri=http://testing.nostat.us/mobile.html';
+}
+var access_token = location.hash.match(/#access_token=(.*)/)[1];
+console.log(access_token);
+console.log(window.location.hash);
+function checkin(id){
+	$.ajax({type:'POST', crossDomain: true, url:"https://api.foursquare.com/v2/checkins/add?oauth_token="+access_token+"&venueId="+id+"&shout=nerdout&broadcast=public"});
+}
+			
+</script>
